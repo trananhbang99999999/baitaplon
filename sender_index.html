@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Người Gửi - Gửi Bài Tập An Toàn</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+      max-width: 720px;
+      margin: auto;
+    }
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .btn-custom {
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-weight: 500;
+    }
+    .header {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="container py-5">
+  <div class="text-center header">
+    <h1 class="text-primary fw-bold">📤 Hệ thống gửi bài tập bảo mật</h1>
+    <p class="text-muted">Người gửi: Gửi file đã mã hóa và ký số đến người nhận.</p>
+  </div>
+
+  <div class="card p-4">
+    <form method="POST" enctype="multipart/form-data" action="/send">
+      <div class="mb-3">
+        <label for="file" class="form-label">📎 Chọn file bài tập:</label>
+        <input type="file" name="file" class="form-control" id="file" required>
+      </div>
+      <button type="submit" class="btn btn-success btn-custom w-100">🚀 Gửi File</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info mt-4">
+          {% for message in messages %}<div>{{ message }}</div>{% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if metadata %}
+    <div class="mt-4">
+      <h5 class="text-secondary">📄 Metadata đã ký</h5>
+      <p><strong>Tên file:</strong> {{ filename }}</p>
+      <p><strong>Metadata:</strong> {{ metadata }}</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>
